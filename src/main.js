@@ -1,4 +1,4 @@
-const app = Vue.createApp({
+const app = {
     data() {
         return {
             tasks: [
@@ -20,12 +20,16 @@ const app = Vue.createApp({
             like: false,
             show: false}
                     ],
-            searchText : ''
+            searchText : '',
+            search: false,
         }
     },
     methods: {
         toggleLike(index){
             this.filterText[index].like = !this.filterText[index].like
+        },
+        toggleSearch(){
+            this.search = !this.search
         },
         toggleShow(index){
             if(index > this.filterText.length-1){
@@ -48,8 +52,10 @@ const app = Vue.createApp({
         },
         filterText(){ // this return Object
             return this.tasks.filter( d => {
-                return d.name.toLowerCase().includes(this.searchText.toLowerCase()) // filter by name object, if searchText contained in object it reture ture
+                return d.name.toLowerCase().includes(this.searchText.toLowerCase() ) // filter by name object, if searchText contained in object it reture ture
             })
         },
     }
-})
+}
+
+Vue.createApp(app).mount('#app')
